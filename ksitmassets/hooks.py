@@ -242,3 +242,33 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+fixtures = [
+    {
+        "dt": "Custom Field",
+        "filters": [
+            ["name", "in", [
+                "Asset-custom_serial_number",
+                "Item-custom_serial_number",
+                "Asset-custom_warranty_end_date",
+                "Asset-custom_warranty_start_date",
+                "Item-custom_makemodel",
+                "Asset-custom_delivery_note",
+                "Asset-custom_invoice_",
+                "Asset-custom_warranty",
+                "Asset-custom_warranty_certificate",
+                "Asset-custom_condition",
+                "Asset-custom_amc_start_date",
+                "Purchase Receipt-custom_date_of_purchase",
+                "Asset-custom_amc_end_dtae"
+                "Item-custom_makemodel",
+                "Item-custom_serial_number"
+            ]]
+        ]
+    }
+]
+# fixtures for the workflow
+
+
+fixtures = [
+  {"doctype": "Workflow", "filters": [["name", "in", ["Asset Issue "]]]}
+]
