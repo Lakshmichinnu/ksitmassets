@@ -1,0 +1,13 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Asset Issue Requests",
+  "enabled": 1,
+  "modified": "2025-11-01 14:22:03.913322",
+  "module": "ksitmassets",
+  "name": "Asset issue requests",
+  "script": "frappe.ui.form.on('Asset Issue Requests', {\r\n    refresh: function(frm) {\r\n        if (frm.doc.workflow_state === 'Approved' && frm.doc.docstatus === 1) {\r\n            frm.add_custom_button(__('Go to Asset Movement'), function() {\r\n                frappe.route_options = {\r\n                    'reference_doctype': 'Asset Issue Requests',\r\n                    'reference_name': frm.doc.name,\r\n                    'purpose': 'Issue',\r\n                    'transaction_date': frm.doc.requested_date,\r\n                    // Prefill single asset and employee into the child table\r\n                    'assets': [\r\n                        {\r\n                            'asset': frm.doc.asset,\r\n                            'to_employee': frm.doc.employee\r\n                        }\r\n                    ]\r\n                };\r\n                frappe.new_doc('Asset Movement');\r\n            }).addClass('btn-primary');\r\n        }\r\n    }\r\n});",
+  "view": "Form"
+ }
+]
