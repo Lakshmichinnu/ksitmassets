@@ -266,19 +266,19 @@ fixtures = [
         ]
     }
 ]
-# fixtures for the workflow
-
-
-fixtures = [
-  {"doctype": "Workflow", "filters": [["name", "in", ["Asset Issue "]]]}
-]
-# fixtures for the client script
+# fixtures for the workflow and client script
 
 fixtures = [
     {
+        "doctype": "Workflow",
+        "filters": [
+            ["name", "in", ["Asset Issue", "Asset Return"]]
+        ]
+    },
+    {
         "doctype": "Client Script",
         "filters": [
-            ["name", "in", ["Asset Issue Requests"]]
+            ["name", "in", ["Asset issue requests", "All asset fetches in asset return"]]
         ]
     }
 ]

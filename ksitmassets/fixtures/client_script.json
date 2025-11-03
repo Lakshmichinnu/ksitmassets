@@ -4,10 +4,21 @@
   "doctype": "Client Script",
   "dt": "Asset Issue Requests",
   "enabled": 1,
-  "modified": "2025-11-01 14:22:03.913322",
+  "modified": "2025-11-02 20:28:47.431718",
   "module": "ksitmassets",
   "name": "Asset issue requests",
   "script": "frappe.ui.form.on('Asset Issue Requests', {\r\n    refresh: function(frm) {\r\n        if (frm.doc.workflow_state === 'Approved' && frm.doc.docstatus === 1) {\r\n            frm.add_custom_button(__('Go to Asset Movement'), function() {\r\n                frappe.route_options = {\r\n                    'reference_doctype': 'Asset Issue Requests',\r\n                    'reference_name': frm.doc.name,\r\n                    'purpose': 'Issue',\r\n                    'transaction_date': frm.doc.requested_date,\r\n                    // Prefill single asset and employee into the child table\r\n                    'assets': [\r\n                        {\r\n                            'asset': frm.doc.asset,\r\n                            'to_employee': frm.doc.employee\r\n                        }\r\n                    ]\r\n                };\r\n                frappe.new_doc('Asset Movement');\r\n            }).addClass('btn-primary');\r\n        }\r\n    }\r\n});",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Asset Return",
+  "enabled": 1,
+  "modified": "2025-11-03 16:49:25.437649",
+  "module": "ksitmassets",
+  "name": "All asset fetches in asset return",
+  "script": "frappe.ui.form.on(\"Asset Return\", {\n    employee_id: function(frm) {\n        if (!frm.doc.employee_id) return;\n\n        frappe.call({\n            method: \"ksitmassets.ksitmassets.doctype.asset_return.asset_return.get_issued_assets\",\n            args: { employee_id: frm.doc.employee_id },\n            callback: function(r) {\n                frm.clear_table(\"assets\");\n\n                if (r.message && r.message.length) {\n                    r.message.forEach(d => {\n                        let row = frm.add_child(\"assets\");\n                        row.asset_id = d.asset_id;\n                        row.asset_name = d.asset_name;\n                        row.condition_at_return = d.condition_at_return;\n                        row.remarks = d.remarks;\n                    });\n\n                    // Refresh table and grid interactivity\n                    frm.refresh_field(\"assets\");\n\n                    //  Force grid to become editable\n                    frappe.utils.delay(300).then(() => {\n                        frm.fields_dict[\"assets\"].grid.refresh();\n                        frm.fields_dict[\"assets\"].grid.update_docfield_property('asset_id', 'read_only', 0);\n                        frm.fields_dict[\"assets\"].grid.df.read_only = 0;\n                        frm.fields_dict[\"assets\"].grid.wrapper.find('.grid-delete-row').show();\n                    });\n\n                    frappe.msgprint(`${r.message.length} asset(s) fetched. You can delete the ones not being returned.`);\n                } else {\n                    frappe.msgprint(\"No issued assets found for this employee.\");\n                }\n            }\n        });\n    }\n});\n",
   "view": "Form"
  }
 ]

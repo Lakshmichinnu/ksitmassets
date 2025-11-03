@@ -24,7 +24,8 @@
   "asset_category",
   "remarks",
   "condition_at_issue",
-  "issue_date"
+  "issue_date",
+  "amended_from"
  ],
  "fields": [
   {
@@ -120,7 +121,7 @@
   },
   {
    "fieldname": "remarks",
-   "fieldtype": "Data",
+   "fieldtype": "Small Text",
    "label": "Remarks"
   },
   {
@@ -132,13 +133,23 @@
    "fieldname": "issue_date",
    "fieldtype": "Date",
    "label": "Issue Date"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Asset Issue Requests",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-10-29 17:13:18.473428",
+ "modified": "2025-11-03 11:38:03.969093",
  "modified_by": "Administrator",
  "module": "ksitmassets",
  "name": "Asset Issue Requests",
