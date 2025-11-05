@@ -17,12 +17,11 @@
   "employee_name",
   "designation",
   "department",
+  "section_break_vkef",
+  "asset_issue_table",
   "section_break_uqdk",
-  "asset",
-  "asset_name",
-  "column_break_mtmk",
-  "asset_category",
   "remarks",
+  "column_break_mtmk",
   "condition_at_issue",
   "issue_date",
   "amended_from"
@@ -96,28 +95,8 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "asset",
-   "fieldtype": "Link",
-   "label": "Asset ID",
-   "options": "Asset"
-  },
-  {
-   "fetch_from": "asset.asset_name",
-   "fieldname": "asset_name",
-   "fieldtype": "Data",
-   "label": "Asset Name",
-   "read_only": 1
-  },
-  {
    "fieldname": "column_break_mtmk",
    "fieldtype": "Column Break"
-  },
-  {
-   "fetch_from": "asset.asset_category",
-   "fieldname": "asset_category",
-   "fieldtype": "Data",
-   "label": "Asset Category",
-   "read_only": 1
   },
   {
    "fieldname": "remarks",
@@ -143,13 +122,23 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "section_break_vkef",
+   "fieldtype": "Section Break",
+   "label": "Assets"
+  },
+  {
+   "fieldname": "asset_issue_table",
+   "fieldtype": "Table",
+   "options": "assets issue table"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-11-03 11:38:03.969093",
+ "modified": "2025-11-04 11:24:25.614538",
  "modified_by": "Administrator",
  "module": "ksitmassets",
  "name": "Asset Issue Requests",

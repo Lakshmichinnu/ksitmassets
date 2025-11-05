@@ -1,23 +1,21 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2025-11-03 11:30:47.666929",
+ "creation": "2025-11-04 11:18:07.635678",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "asset_id",
   "asset_name",
-  "verified",
-  "remarks",
-  "condition_at_return"
+  "asset_category"
  ],
  "fields": [
   {
    "fieldname": "asset_id",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Asset ID",
+   "label": "Asset Id",
    "options": "Asset"
   },
   {
@@ -29,35 +27,22 @@
    "read_only": 1
   },
   {
-   "default": "0",
-   "fieldname": "verified",
-   "fieldtype": "Check",
-   "in_list_view": 1,
-   "label": "Verified",
-   "read_only_depends_on": "eval:!frappe.user.has_role('Asset Admin')"
-  },
-  {
-   "fieldname": "remarks",
-   "fieldtype": "Small Text",
-   "in_list_view": 1,
-   "label": "Remarks"
-  },
-  {
-   "fieldname": "condition_at_return",
+   "fetch_from": "asset_id.asset_category",
+   "fieldname": "asset_category",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Condition at Return",
-   "read_only_depends_on": "eval:!frappe.user.has_role('Asset Admin')"
+   "label": "Asset Category",
+   "read_only": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-11-04 12:45:01.072328",
+ "modified": "2025-11-04 11:21:47.730751",
  "modified_by": "Administrator",
  "module": "ksitmassets",
- "name": "Asset Return Item",
+ "name": "assets issue table",
  "owner": "Administrator",
  "permissions": [],
  "row_format": "Dynamic",

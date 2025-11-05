@@ -278,7 +278,7 @@ fixtures = [
     {
         "doctype": "Client Script",
         "filters": [
-            ["name", "in", ["Asset issue requests", "All asset fetches in asset return"]]
+            ["name", "in", ["Asset issue requests", "All asset fetches in asset return","asset issue multi","asset return","asset_movement_populate_from_return"]]
         ]
     }
 ]
