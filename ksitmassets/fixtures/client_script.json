@@ -2,6 +2,17 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
+  "dt": "Asset",
+  "enabled": 1,
+  "modified": "2025-11-11 11:51:39.038131",
+  "module": "ksitmassets",
+  "name": "hide/remove scrap asset option",
+  "script": "\nfrappe.ui.form.on(\"Asset\", {\n    refresh(frm) {\n        setTimeout(() => {\n\n            // Remove default scrap button\n            frm.page.remove_inner_button(__('Scrap Asset'), __('Manage'));\n\n            // Add custom Asset Disposal button\n            frm.page.add_inner_button(__('Asset Disposal'), () => {\n\n                frappe.new_doc(\"Asset Disposal\", {\n                    asset_id: frm.doc.name   // <-- This fills asset_id correctly\n                });\n\n            }, __('Manage'));\n\n        }, 100);\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
   "dt": "Asset Issue Requests",
   "enabled": 0,
   "modified": "2025-11-04 11:59:46.712729",

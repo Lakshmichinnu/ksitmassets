@@ -266,19 +266,25 @@ fixtures = [
         ]
     }
 ]
-# fixtures for the workflow and client script
-
+# fixtures for the workflow and client script and server script
 fixtures = [
     {
         "doctype": "Workflow",
         "filters": [
-            ["name", "in", ["Asset Issue", "Asset Return"]]
+            ["name", "in", ["Asset Issue", "Asset Return","Asset Disposal"]]
         ]
     },
     {
         "doctype": "Client Script",
         "filters": [
-            ["name", "in", ["Asset issue requests", "All asset fetches in asset return","asset issue multi","asset return","asset_movement_populate_from_return"]]
+            ["name", "in", ["Asset issue requests", "All asset fetches in asset return","asset issue multi","asset return","asset_movement_populate_from_return","hide/remove scrap asset option"]]
+        ]
+    },
+     {
+        "dt": "Server Script",
+        "filters": [
+            ["name", "in", ["Asset approved scrapped",]]
         ]
     }
 ]
+
