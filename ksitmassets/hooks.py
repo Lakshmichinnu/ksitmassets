@@ -165,6 +165,12 @@ app_license = "mit"
 # 		"ksitmassets.tasks.monthly"
 # 	],
 # }
+scheduler_events = {
+    "daily": [
+        "ksitmassets.tasks.amc_alerts.send_amc_expiry_alerts",
+        "ksitmassets.tasks.warranty_alerts.send_warranty_expiry_alerts"
+    ]
+}
 
 # Testing
 # -------
@@ -243,8 +249,9 @@ app_license = "mit"
 # }
 
 fixtures = [
+    # --- Custom Fields ---
     {
-        "dt": "Custom Field",
+        "doctype": "Custom Field",
         "filters": [
             ["name", "in", [
                 "Asset-custom_serial_number",
@@ -259,31 +266,46 @@ fixtures = [
                 "Asset-custom_condition",
                 "Asset-custom_amc_start_date",
                 "Purchase Receipt-custom_date_of_purchase",
-                "Asset-custom_amc_end_dtae"
+                "Asset-custom_amc_end_dtae",
                 "Item-custom_makemodel",
-                "Item-custom_serial_number"
+                "Item-custom_serial_number",
+                "Asset Maintenance-custom_requested_on",
+                "Asset Maintenance-custom_vendor",
+                "Asset Maintenance-custom_remarks",
+                "Asset Maintenance-custom_cost",
+                "Asset-custom_asset_status"
             ]]
         ]
-    }
-]
-# fixtures for the workflow and client script and server script
-fixtures = [
+    },
+
+    # --- Workflows ---
     {
         "doctype": "Workflow",
         "filters": [
-            ["name", "in", ["Asset Issue", "Asset Return","Asset Disposal"]]
+            ["name", "in", ["Asset Issue", "Asset Return", "Asset Disposal"]]
         ]
     },
+
+    # --- Client Scripts ---
     {
         "doctype": "Client Script",
         "filters": [
-            ["name", "in", ["Asset issue requests", "All asset fetches in asset return","asset issue multi","asset return","asset_movement_populate_from_return","hide/remove scrap asset option"]]
+            ["name", "in", [
+                "Asset issue requests",
+                "All asset fetches in asset return",
+                "asset issue multi",
+                "asset return",
+                "asset_movement_populate_from_return",
+                "hide/remove scrap asset option"
+            ]]
         ]
     },
-     {
-        "dt": "Server Script",
+
+    # --- Server Scripts ---
+    {
+        "doctype": "Server Script",
         "filters": [
-            ["name", "in", ["Asset approved scrapped",]]
+            ["name", "in", ["Asset approved scrapped"]]
         ]
     }
 ]
