@@ -2,6 +2,17 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
+  "dt": "Asset Movement",
+  "enabled": 1,
+  "modified": "2025-11-13 16:49:15.476818",
+  "module": "ksitmassets",
+  "name": "Asset issue back",
+  "script": "frappe.ui.form.on(\"Asset Movement Item\", {\n    asset: function(frm, cdt, cdn) {\n        let row = locals[cdt][cdn];\n        if (!row.asset || frm.doc.purpose !== \"Issue\") return;\n\n        frappe.call({\n            method: \"frappe.client.get_value\",\n            args: {\n                doctype: \"Asset\",\n                filters: { name: row.asset },\n                fieldname: [\"custodian\"]\n            },\n            callback: function(r) {\n                if (r.message && r.message.custodian) {\n                    frappe.msgprint(\n                        __(\"This asset is currently held by <b>{0}</b>. Please receive it back before issuing again.\", [r.message.custodian])\n                    );\n                    frappe.model.set_value(cdt, cdn, \"asset\", null);\n                }\n            }\n        });\n    }\n});\n\n\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
   "dt": "Asset",
   "enabled": 1,
   "modified": "2025-11-11 11:51:39.038131",
@@ -13,34 +24,12 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
-  "dt": "Asset Issue Requests",
-  "enabled": 0,
-  "modified": "2025-11-04 11:59:46.712729",
-  "module": "ksitmassets",
-  "name": "Asset issue requests",
-  "script": "frappe.ui.form.on('Asset Issue Requests', {\r\n    refresh: function(frm) {\r\n        if (frm.doc.workflow_state === 'Approved' && frm.doc.docstatus === 1) {\r\n            frm.add_custom_button(__('Go to Asset Movement'), function() {\r\n                frappe.route_options = {\r\n                    'reference_doctype': 'Asset Issue Requests',\r\n                    'reference_name': frm.doc.name,\r\n                    'purpose': 'Issue',\r\n                    'transaction_date': frm.doc.requested_date,\r\n                    // Prefill single asset and employee into the child table\r\n                    'assets': [\r\n                        {\r\n                            'asset': frm.doc.asset,\r\n                            'to_employee': frm.doc.employee\r\n                        }\r\n                    ]\r\n                };\r\n                frappe.new_doc('Asset Movement');\r\n            }).addClass('btn-primary');\r\n        }\r\n    }\r\n});",
-  "view": "Form"
- },
- {
-  "docstatus": 0,
-  "doctype": "Client Script",
   "dt": "Asset Return",
   "enabled": 1,
   "modified": "2025-11-03 16:49:25.437649",
   "module": "ksitmassets",
   "name": "All asset fetches in asset return",
   "script": "frappe.ui.form.on(\"Asset Return\", {\n    employee_id: function(frm) {\n        if (!frm.doc.employee_id) return;\n\n        frappe.call({\n            method: \"ksitmassets.ksitmassets.doctype.asset_return.asset_return.get_issued_assets\",\n            args: { employee_id: frm.doc.employee_id },\n            callback: function(r) {\n                frm.clear_table(\"assets\");\n\n                if (r.message && r.message.length) {\n                    r.message.forEach(d => {\n                        let row = frm.add_child(\"assets\");\n                        row.asset_id = d.asset_id;\n                        row.asset_name = d.asset_name;\n                        row.condition_at_return = d.condition_at_return;\n                        row.remarks = d.remarks;\n                    });\n\n                    // Refresh table and grid interactivity\n                    frm.refresh_field(\"assets\");\n\n                    //  Force grid to become editable\n                    frappe.utils.delay(300).then(() => {\n                        frm.fields_dict[\"assets\"].grid.refresh();\n                        frm.fields_dict[\"assets\"].grid.update_docfield_property('asset_id', 'read_only', 0);\n                        frm.fields_dict[\"assets\"].grid.df.read_only = 0;\n                        frm.fields_dict[\"assets\"].grid.wrapper.find('.grid-delete-row').show();\n                    });\n\n                    frappe.msgprint(`${r.message.length} asset(s) fetched. You can delete the ones not being returned.`);\n                } else {\n                    frappe.msgprint(\"No issued assets found for this employee.\");\n                }\n            }\n        });\n    }\n});\n",
-  "view": "Form"
- },
- {
-  "docstatus": 0,
-  "doctype": "Client Script",
-  "dt": "Asset Issue Requests",
-  "enabled": 1,
-  "modified": "2025-11-04 12:00:08.697735",
-  "module": "ksitmassets",
-  "name": "asset issue multi",
-  "script": "frappe.ui.form.on('Asset Issue Requests', {\n    refresh: function(frm) {\n        if (frm.doc.workflow_state === 'Approved' && frm.doc.docstatus === 1) {\n            frm.add_custom_button(__('Go to Asset Movement'), function() {\n                // Prepare assets array from the child table\n                let assets_to_move = [];\n                \n                if (frm.doc.asset_issue_table && frm.doc.asset_issue_table.length > 0) {\n                    frm.doc.asset_issue_table.forEach(function(row) {\n                        assets_to_move.push({\n                            'asset': row.asset_id,\n                            'to_employee': frm.doc.employee_name\n                        });\n                    });\n                }\n                \n                frappe.route_options = {\n                    'reference_doctype': 'Asset Issue Requests',\n                    'reference_name': frm.doc.name,\n                    'purpose': 'Issue',\n                    'transaction_date': frm.doc.requested_date,\n                    'assets': assets_to_move\n                };\n                \n                frappe.new_doc('Asset Movement');\n            }).addClass('btn-primary');\n        }\n    }\n});\n",
   "view": "Form"
  },
  {
@@ -63,6 +52,17 @@
   "module": "ksitmassets",
   "name": "asset_movement_populate_from_return",
   "script": "frappe.ui.form.on('Asset Movement', {\n    onload: function(frm) {\n        let return_data = sessionStorage.getItem('asset_return_to_movement');\n        \n        if (return_data) {\n            let data = JSON.parse(return_data);\n            \n            // Set header fields\n            frm.set_value('purpose', data.purpose);\n            frm.set_value('reference_doctype', data.reference_doctype);\n            frm.set_value('reference_name', data.reference_name);\n            frm.set_value('transaction_date', data.transaction_date);\n            \n            // Clear existing rows first\n            frm.clear_table('assets');\n            \n            // Add assets to child table\n            data.assets.forEach(function(item) {\n                let row = frm.add_child('assets');\n                row.asset = item.asset;\n                row.from_employee = item.from_employee;\n            });\n            \n            frm.refresh_field('assets');\n            \n            // Clear storage\n            sessionStorage.removeItem('asset_return_to_movement');\n        }\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Asset Issue Requests",
+  "enabled": 1,
+  "modified": "2025-11-15 12:02:33.671433",
+  "module": "ksitmassets",
+  "name": "Asset issue requets to asset movement",
+  "script": "frappe.ui.form.on('Asset Issue Requests', {\n    refresh: function(frm) {\n        if (frm.doc.workflow_state === 'Approved' && frm.doc.docstatus === 1) {\n            frm.add_custom_button(__('Go to Asset Movement'), function() {\n                create_asset_movement_doc(frm);\n            }).addClass('btn-primary');\n        }\n    }\n});\n\nfunction create_asset_movement_doc(frm) {\n    // Prepare assets array from the child table\n    let assets_array = [];\n    \n    if (frm.doc.asset_issue_table && frm.doc.asset_issue_table.length > 0) {\n        frm.doc.asset_issue_table.forEach(function(row) {\n            assets_array.push({\n                'asset': row.asset_id,\n                'asset_name': row.asset_name,\n                'to_employee': frm.doc.employee\n            });\n        });\n    } else {\n        frappe.msgprint(__('No assets found in the Asset Issue Request'));\n        return;\n    }\n    \n    // Call server-side method to create Asset Movement\n    frappe.call({\n        method: 'frappe.client.insert',\n        args: {\n            doc: {\n                doctype: 'Asset Movement',\n                purpose: 'Issue',\n                transaction_date: frm.doc.requested_date,\n                reference_doctype: 'Asset Issue Requests',\n                reference_name: frm.doc.name,\n                assets: assets_array\n            }\n        },\n        callback: function(r) {\n            if (!r.exc) {\n                frappe.msgprint(__('Asset Movement created successfully'));\n                frappe.set_route('Form', 'Asset Movement', r.message.name);\n            }\n        }\n    });\n}\n",
   "view": "Form"
  }
 ]

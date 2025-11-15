@@ -291,12 +291,12 @@ fixtures = [
         "doctype": "Client Script",
         "filters": [
             ["name", "in", [
-                "Asset issue requests",
                 "All asset fetches in asset return",
-                "asset issue multi",
                 "asset return",
                 "asset_movement_populate_from_return",
-                "hide/remove scrap asset option"
+                "hide/remove scrap asset option",
+                "Asset issue back",
+                "Asset issue requets to asset movement"
             ]]
         ]
     },
