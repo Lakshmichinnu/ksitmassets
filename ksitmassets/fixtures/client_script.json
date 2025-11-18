@@ -2,17 +2,6 @@
  {
   "docstatus": 0,
   "doctype": "Client Script",
-  "dt": "Asset Movement",
-  "enabled": 1,
-  "modified": "2025-11-13 16:49:15.476818",
-  "module": "ksitmassets",
-  "name": "Asset issue back",
-  "script": "frappe.ui.form.on(\"Asset Movement Item\", {\n    asset: function(frm, cdt, cdn) {\n        let row = locals[cdt][cdn];\n        if (!row.asset || frm.doc.purpose !== \"Issue\") return;\n\n        frappe.call({\n            method: \"frappe.client.get_value\",\n            args: {\n                doctype: \"Asset\",\n                filters: { name: row.asset },\n                fieldname: [\"custodian\"]\n            },\n            callback: function(r) {\n                if (r.message && r.message.custodian) {\n                    frappe.msgprint(\n                        __(\"This asset is currently held by <b>{0}</b>. Please receive it back before issuing again.\", [r.message.custodian])\n                    );\n                    frappe.model.set_value(cdt, cdn, \"asset\", null);\n                }\n            }\n        });\n    }\n});\n\n\n",
-  "view": "Form"
- },
- {
-  "docstatus": 0,
-  "doctype": "Client Script",
   "dt": "Asset",
   "enabled": 1,
   "modified": "2025-11-11 11:51:39.038131",

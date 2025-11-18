@@ -144,6 +144,13 @@ app_license = "mit"
 # 		"on_trash": "method"
 # 	}
 # }
+doc_events = {
+	"Asset Movement": {
+		"validate": "ksitmassets.asset_movement_validation.validate_asset_movement",
+		"after_submit": "ksitmassets.asset_movement_validation.after_submit_asset_movement"
+	}
+}
+
 
 # Scheduled Tasks
 # ---------------
@@ -263,17 +270,15 @@ fixtures = [
                 "Asset-custom_invoice_",
                 "Asset-custom_warranty",
                 "Asset-custom_warranty_certificate",
-                "Asset-custom_condition",
                 "Asset-custom_amc_start_date",
                 "Purchase Receipt-custom_date_of_purchase",
                 "Asset-custom_amc_end_dtae",
-                "Item-custom_makemodel",
-                "Item-custom_serial_number",
                 "Asset Maintenance-custom_requested_on",
                 "Asset Maintenance-custom_vendor",
                 "Asset Maintenance-custom_remarks",
                 "Asset Maintenance-custom_cost",
-                "Asset-custom_asset_status"
+                "Asset-custom_asset_status",
+                "Asset Movement Item-custom_condition_at_transfer",
             ]]
         ]
     },
@@ -307,6 +312,23 @@ fixtures = [
         "filters": [
             ["name", "in", ["Asset approved scrapped"]]
         ]
-    }
+    },
+    #Custom Reports
+    {
+        "doctype": "Report",
+        "filters": [
+            ["name", "in", [
+                "AMC_Warranty_report",
+                "Asset Register",
+                "Asset Transfer History",
+                "Asset Disposal",
+                "Asset Issued to Employees"
+            ]]
+        ]
+    },
+
 ]
+
+
+
 

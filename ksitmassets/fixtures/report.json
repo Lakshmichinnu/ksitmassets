@@ -1,0 +1,222 @@
+[
+ {
+  "add_total_row": 0,
+  "add_translate_data": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2025-11-17 14:21:18.823715",
+  "module": "ksitmassets",
+  "name": "Asset Issued to Employees",
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Asset Movement",
+  "reference_report": null,
+  "report_name": "Asset Issued to Employees",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "Asset Issued to Employees",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "System Manager"
+   },
+   {
+    "parent": "Asset Issued to Employees",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Stock Manager"
+   },
+   {
+    "parent": "Asset Issued to Employees",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Asset Admin"
+   },
+   {
+    "parent": "Asset Issued to Employees",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Asset User"
+   }
+  ],
+  "timeout": 0
+ },
+ {
+  "add_total_row": 0,
+  "add_translate_data": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "Yes",
+  "javascript": null,
+  "json": null,
+  "letter_head": null,
+  "modified": "2025-11-17 14:22:59.442797",
+  "module": "ksitmassets",
+  "name": "AMC_Warranty_report",
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Asset",
+  "reference_report": null,
+  "report_name": "AMC_Warranty_report",
+  "report_script": null,
+  "report_type": "Script Report",
+  "roles": [
+   {
+    "parent": "AMC_Warranty_report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Employee"
+   },
+   {
+    "parent": "AMC_Warranty_report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Asset User"
+   },
+   {
+    "parent": "AMC_Warranty_report",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Asset Admin"
+   }
+  ],
+  "timeout": 0
+ },
+ {
+  "add_total_row": 0,
+  "add_translate_data": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{}",
+  "letter_head": null,
+  "modified": "2025-11-17 15:04:06.243464",
+  "module": "ksitmassets",
+  "name": "Asset Transfer History",
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Asset Movement",
+  "reference_report": null,
+  "report_name": "Asset Transfer History",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Asset Transfer History",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "System Manager"
+   },
+   {
+    "parent": "Asset Transfer History",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Asset Admin"
+   }
+  ],
+  "timeout": 0
+ },
+ {
+  "add_total_row": 0,
+  "add_translate_data": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{\"filters\":[],\"fields\":[[\"workflow_state\",\"Asset Disposal\"],[\"name\",\"Asset Disposal\"],[\"docstatus\",\"Asset Disposal\"],[\"asset_category\",\"Asset Disposal\"],[\"asset_id\",\"Asset Disposal\"],[\"asset_name\",\"Asset Disposal\"],[\"disposal_type\",\"Asset Disposal\"],[\"scrap_attachment\",\"Asset Disposal\"],[\"residual_value\",\"Asset Disposal\"]],\"order_by\":\"`tabAsset Disposal`.`modified` desc\",\"page_length\":20,\"column_widths\":{\"workflow_state\":120,\"name\":120,\"asset_category\":120,\"asset_id\":120,\"asset_name\":120,\"disposal_type\":120,\"scrap_attachment\":120,\"residual_value\":120},\"group_by\":null}",
+  "letter_head": null,
+  "modified": "2025-11-18 11:21:42.843038",
+  "module": "ksitmassets",
+  "name": "Asset Disposal",
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Asset Disposal",
+  "reference_report": null,
+  "report_name": "Asset Disposal",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Asset Disposal",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "System Manager"
+   },
+   {
+    "parent": "Asset Disposal",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Asset Admin"
+   },
+   {
+    "parent": "Asset Disposal",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Director"
+   }
+  ],
+  "timeout": 0
+ },
+ {
+  "add_total_row": 0,
+  "add_translate_data": 0,
+  "columns": [],
+  "disabled": 0,
+  "docstatus": 0,
+  "doctype": "Report",
+  "filters": [],
+  "is_standard": "No",
+  "javascript": null,
+  "json": "{}",
+  "letter_head": null,
+  "modified": "2025-11-15 16:31:52.332935",
+  "module": "ksitmassets",
+  "name": "Asset Register",
+  "prepared_report": 0,
+  "query": null,
+  "ref_doctype": "Asset",
+  "reference_report": null,
+  "report_name": "Asset Register",
+  "report_script": null,
+  "report_type": "Report Builder",
+  "roles": [
+   {
+    "parent": "Asset Register",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Employee"
+   },
+   {
+    "parent": "Asset Register",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Asset User"
+   },
+   {
+    "parent": "Asset Register",
+    "parentfield": "roles",
+    "parenttype": "Report",
+    "role": "Asset Admin"
+   }
+  ],
+  "timeout": 0
+ }
+]

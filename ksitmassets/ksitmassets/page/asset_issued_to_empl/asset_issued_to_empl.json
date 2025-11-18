@@ -1,0 +1,22 @@
+{
+ "content": null,
+ "creation": "2025-11-17 15:09:33.691360",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2025-11-17 15:09:40.539311",
+ "modified_by": "Administrator",
+ "module": "ksitmassets",
+ "name": "asset-issued-to-empl",
+ "owner": "Administrator",
+ "page_name": "asset-issued-to-empl",
+ "roles": [
+  {
+   "role": "Asset Admin"
+  }
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0
+}

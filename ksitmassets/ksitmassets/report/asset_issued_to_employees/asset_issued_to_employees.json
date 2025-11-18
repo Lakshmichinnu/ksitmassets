@@ -1,0 +1,37 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2025-11-15 17:10:44.654137",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letterhead": null,
+ "modified": "2025-11-17 14:21:18.823715",
+ "modified_by": "Administrator",
+ "module": "ksitmassets",
+ "name": "Asset Issued to Employees",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Asset Movement",
+ "report_name": "Asset Issued to Employees",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Stock Manager"
+  },
+  {
+   "role": "Asset Admin"
+  },
+  {
+   "role": "Asset User"
+  }
+ ],
+ "timeout": 0
+}
